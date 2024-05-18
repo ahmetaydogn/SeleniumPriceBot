@@ -1,26 +1,29 @@
 # imports
-
-import threading
-import requests
-
 import n11scraper
 import hepsiburadascraper
 import trendyolscraper
 import vatanbilgisayarscraper
 
-#vB = vatanbilgisayarscraper.VatanBilgisayar()
-tS = trendyolscraper.Trendyol()
-#hS = hepsiburadascraper.Hepsiburada()
-#aS = n11scraper.N11Scraper()
+def search_trendyol(product_name:str, is_wanted_one_product:bool):
+    tS = trendyolscraper.Trendyol()
+    tS.searchProduct(product_name, is_wanted_one_product)
 
-#vB.searchProduct("Aceradfkjbadhıgjbgqegq", False)
-tS.searchProduct("Acer Laptop", True)
-#hS.searchProduct("Acer")
-#aS.searchProduct("Acerccqwrqwqwssd")
+def search_n11(product_name:str, is_wanted_one_product: bool):
+    n11 = n11scraper.N11Scraper()
+    n11.searchProduct(product_name, is_wanted_one_product)
+
+def search_vatanbilgisayar(product_name:str, is_wanted_one_product: bool):
+    vB = vatanbilgisayarscraper.VatanBilgisayar()
+    vB.searchProduct(product_name, is_wanted_one_product)
+
+def search_hepsiburada(product_name:str, is_wanted_one_product: bool):
+    hS = hepsiburadascraper.Hepsiburada()
+    hS.searchProduct(product_name, is_wanted_one_product)
+
 
 # get valid proxies
-with open('valid_proxies.txt', mode='r') as f:
-    proxies = f.read().splitlines()
+#with open('valid_proxies.txt', mode='r') as f:
+#    proxies = f.read().splitlines()
 
 #for proxy in proxies:
 #    current_proxy = {

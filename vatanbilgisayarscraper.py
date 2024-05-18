@@ -8,6 +8,9 @@ from selenium.webdriver.chrome.service import Service
 class VatanBilgisayar:
     def __init__(self):
         self.service = Service(executable_path='chromedriver.exe')
+#       self.options = webdriver.ChromeOptions()
+#       self.options.add_argument("--headless")
+#       self.driver = webdriver.Chrome(service=self.service, options=self.options)
         self.driver = webdriver.Chrome(service=self.service)
         self.driver.delete_all_cookies()
 
@@ -36,13 +39,13 @@ class VatanBilgisayar:
         if is_wanted_one_data:
             finded_product_name = driver.find_element(By.CLASS_NAME, 'product-list__product-name')
             finded_product_price = driver.find_element(By.CLASS_NAME, 'product-list__price')
-            print(f"{finded_product_name.text} - {finded_product_price.text} TL")
+            print(f"Vatan Bilgisayar: {finded_product_name.text} - {finded_product_price.text} TL")
         else:
             finded_product_names = driver.find_elements(By.CLASS_NAME, 'product-list__product-name')
             finded_product_prices = driver.find_elements(By.CLASS_NAME, 'product-list__price')
 
             if len(finded_product_names) == len(finded_product_prices):
                 for i in range(len(finded_product_prices)):
-                    print(f"{finded_product_names[i].text} - {finded_product_prices[i].text} TL")
+                    print(f"Vatan Bilgisayar: f{finded_product_names[i].text} - {finded_product_prices[i].text} TL")
 
         driver.quit()
