@@ -8,9 +8,7 @@ from selenium.webdriver.chrome.service import Service
 class N11Scraper:
     def __init__(self):
         self.service = Service(executable_path='chromedriver.exe')
-        #self.options = webdriver.ChromeOptions()
-        #self.options.add_argument("--headless")
-        #self.driver = webdriver.Chrome(service=self.service, options=self.options)
+        self.options = webdriver.ChromeOptions()
         self.driver = webdriver.Chrome(service=self.service)
         self.driver.delete_all_cookies()
 
@@ -21,7 +19,7 @@ class N11Scraper:
 
         # get input bar
         WebDriverWait(driver, 5).until(EC.visibility_of_element_located(
-            (By.ID, 'searchData')
+            (By.ID, 'productSearchForm')
         ))
         input_text = driver.find_element(By.ID, 'searchData')
         input_text.send_keys(product_name + Keys.ENTER)
@@ -32,14 +30,14 @@ class N11Scraper:
                 (By.CLASS_NAME, 'listOptionHolder')
             ))
         except:
-            print("No results")
+            print("N11: Sonuç yok.")
             return "No results"
 
         # return result depands on one data or all data
         if is_wanted_one_data:
             finded_product_name = driver.find_element(By.CLASS_NAME, 'productName')
             finded_product_price = driver.find_element(By.TAG_NAME, 'ins')
-            print(f"N11: {finded_product_name.text} - {finded_product_price.text} TL")
+            print(f"N11: {finded_product_name.text} - {finded_product_price.text}")
 
         else:
             finded_product_names = driver.find_elements(By.CLASS_NAME, 'productName')
@@ -47,6 +45,7 @@ class N11Scraper:
 
             if len(finded_product_names) == len(finded_product_prices):
                 for i in range(len(finded_product_prices)):
-                    print(f"N11: {finded_product_names[i].text} - {finded_product_prices[i].text} TL")
-
+                    print(f"N11: {finded_product_names[i].text} - {finded_product_prices[i].text}")
+            else:
+                print("N11: Sanırım bir hata var.")
         driver.quit()

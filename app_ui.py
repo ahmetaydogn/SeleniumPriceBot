@@ -77,13 +77,10 @@ class App(ct.CTk):
                 self.is_one_product = False
 
             if self.hepsiburada_check_var.get() == 'hepsiburada_on':
-                print(self.name_entry.get())
                 main.search_hepsiburada(self.name_entry.get(), self.is_one_product)
             if self.trendyol_check_var.get() == 'trendyol_on':
-                print(self.name_entry.get())
                 main.search_trendyol(self.name_entry.get(), self.is_one_product)
             if self.n11_check_var.get() == 'n11_on':
-                print(self.name_entry.get())
                 main.search_n11(self.name_entry.get(), self.is_one_product)
             if self.vatanbilgisayar_check_var.get() == 'vatanbilgisayar_on':
                 main.search_vatanbilgisayar(self.name_entry.get(), self.is_one_product)

@@ -39,20 +39,21 @@ class Hepsiburada:
                 (By.CLASS_NAME, 'moria-ProductCard-kUDchF')
             ))
         except:
-            print("No results")
+            print("Hepsiburada: Sonuç yok.")
             return "No results"
 
         # return result depands on one data or all data :D
         if is_wanted_one_data:
-            finded_product_name = driver.find_element(By.CLASS_NAME, 'moria-ProductCard-kEwjUF')
-            finded_product_price = driver.find_element(By.CLASS_NAME, 'moria-ProductCard-kUDchF')
-            print(f"Hepsiburada: {finded_product_name.text} - {finded_product_price.text} TL")
+            finded_product_name = driver.find_element(By.CSS_SELECTOR, "h3[data-test-id='product-card-name']")
+            finded_product_price = driver.find_element(By.CSS_SELECTOR, "div[data-test-id='price-current-price']")
+            print(f"Hepsiburada: {finded_product_name.text} - {finded_product_price.text}")
         else:
-            finded_product_names = driver.find_elements(By.CLASS_NAME, 'moria-ProductCard-kEwjUF')
-            finded_product_prices = driver.find_elements(By.CLASS_NAME, 'moria-ProductCard-kUDchF')
+            finded_product_names = driver.find_elements(By.CSS_SELECTOR, "h3[data-test-id='product-card-name']")
+            finded_product_prices = driver.find_elements(By.CSS_SELECTOR, "div[data-test-id='price-current-price']")
 
             if len(finded_product_names) == len(finded_product_prices):
                 for i in range(len(finded_product_prices)):
-                    print(f"Hepsiburada: {finded_product_names[i].text} - {finded_product_prices[i].text} TL")
-
+                    print(f"Hepsiburada: {finded_product_names[i].text} - {finded_product_prices[i].text}")
+            else:
+                print("Hepsiburada: Sanırım bir hata var.")
         driver.quit()

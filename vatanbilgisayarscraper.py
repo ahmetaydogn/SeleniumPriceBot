@@ -8,10 +8,9 @@ from selenium.webdriver.chrome.service import Service
 class VatanBilgisayar:
     def __init__(self):
         self.service = Service(executable_path='chromedriver.exe')
-#       self.options = webdriver.ChromeOptions()
-#       self.options.add_argument("--headless")
-#       self.driver = webdriver.Chrome(service=self.service, options=self.options)
-        self.driver = webdriver.Chrome(service=self.service)
+        self.options = webdriver.ChromeOptions()
+        self.options.add_argument("--headless")
+        self.driver = webdriver.Chrome(service=self.service, options=self.options)
         self.driver.delete_all_cookies()
 
     def searchProduct(self, product_name, is_wanted_one_data:bool):
@@ -32,7 +31,7 @@ class VatanBilgisayar:
                 (By.CLASS_NAME, 'product-list')
             ))
         except:
-            print("No results")
+            print("Vatan Bilgisayar: Sonuç yok.")
             return "No results"
 
         # return result depands on one data or all data :D
@@ -47,5 +46,6 @@ class VatanBilgisayar:
             if len(finded_product_names) == len(finded_product_prices):
                 for i in range(len(finded_product_prices)):
                     print(f"Vatan Bilgisayar: f{finded_product_names[i].text} - {finded_product_prices[i].text} TL")
-
+            else:
+                print("Vatan Bilgisayar: Sanırım bir hata var.")
         driver.quit()
