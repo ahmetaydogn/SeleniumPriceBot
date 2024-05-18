@@ -1,3 +1,5 @@
+import threading
+
 import customtkinter as ct
 import n11scraper
 import hepsiburadascraper
@@ -76,14 +78,40 @@ class App(ct.CTk):
             else:
                 self.is_one_product = False
 
+            def run_function(func, *args):
+                func(*args)
+
+            threads = []
             if self.hepsiburada_check_var.get() == 'hepsiburada_on':
-                main.search_hepsiburada(self.name_entry.get(), self.is_one_product)
+                thread_hepsiburada = threading.Thread(target=run_function,
+                args=(main.search_hepsiburada, self.name_entry.get(), self.is_one_product))
+
+                threads.append(thread_hepsiburada)
+                thread_hepsiburada.start()
+
             if self.trendyol_check_var.get() == 'trendyol_on':
-                main.search_trendyol(self.name_entry.get(), self.is_one_product)
+                thread_trendyol = threading.Thread(target=run_function,
+                args=(main.search_trendyol, self.name_entry.get(), self.is_one_product))
+
+                threads.append(thread_trendyol)
+                thread_trendyol.start()
+
             if self.n11_check_var.get() == 'n11_on':
-                main.search_n11(self.name_entry.get(), self.is_one_product)
+                thread_n11 = threading.Thread(target=run_function,
+                args=(main.search_n11, self.name_entry.get(), self.is_one_product))
+
+                threads.append(thread_n11)
+                thread_n11.start()
+
             if self.vatanbilgisayar_check_var.get() == 'vatanbilgisayar_on':
-                main.search_vatanbilgisayar(self.name_entry.get(), self.is_one_product)
+                thread_vatanbilgisayar = threading.Thread(target=run_function, args=(
+                main.search_vatanbilgisayar, self.name_entry.get(), self.is_one_product))
+
+                threads.append(thread_vatanbilgisayar)
+                thread_vatanbilgisayar.start()
+
+            for thread in threads:
+                thread.join()
 
         self.search_button = ct.CTkButton(self, text='Ara', width=310, command=do_something)
         self.search_button.grid(row=5, column=0, columnspan=2, padx=(22, 8), pady=10, sticky='ew')
