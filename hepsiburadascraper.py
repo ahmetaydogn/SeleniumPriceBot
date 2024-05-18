@@ -8,9 +8,6 @@ from selenium.webdriver.chrome.service import Service
 class Hepsiburada:
     def __init__(self):
         self.service = Service(executable_path='chromedriver.exe')
-        #self.options = webdriver.ChromeOptions()
-        #self.options.add_argument("--headless")
-        #self.driver = webdriver.Chrome(service=self.service, options=self.options)
         self.driver = webdriver.Chrome(service=self.service)
         self.driver.delete_all_cookies()
 

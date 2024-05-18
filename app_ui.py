@@ -1,10 +1,7 @@
 import threading
+import time
 
 import customtkinter as ct
-import n11scraper
-import hepsiburadascraper
-import trendyolscraper
-import vatanbilgisayarscraper
 import main
 
 
@@ -106,12 +103,12 @@ class App(ct.CTk):
             if self.vatanbilgisayar_check_var.get() == 'vatanbilgisayar_on':
                 thread_vatanbilgisayar = threading.Thread(target=run_function, args=(
                 main.search_vatanbilgisayar, self.name_entry.get(), self.is_one_product))
-
                 threads.append(thread_vatanbilgisayar)
                 thread_vatanbilgisayar.start()
 
             for thread in threads:
                 thread.join()
+
 
         self.search_button = ct.CTkButton(self, text='Ara', width=310, command=do_something)
         self.search_button.grid(row=5, column=0, columnspan=2, padx=(22, 8), pady=10, sticky='ew')
